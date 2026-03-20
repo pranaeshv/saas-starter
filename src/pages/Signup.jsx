@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 export default function Signup() {
   const [email, setEmail] = useState('')
@@ -8,23 +8,24 @@ export default function Signup() {
   const [error, setError] = useState(null)
   const [message, setMessage] = useState(null)
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
   
 
-  const handleSignup = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError(null)
-    setMessage(null)
+ const handleSignup = async (e) => {
+  e.preventDefault()
+  setLoading(true)
+  setError(null)
+  setMessage(null)
 
-    const { error } = await supabase.auth.signUp({ email, password })
+  const { error } = await supabase.auth.signUp({ email, password })
 
-    if (error) {
-      setError(error.message)
-    } else {
-      setMessage('Check your email for a confirmation link!')
-    }
-    setLoading(false)
+  if (error) {
+    setError(error.message)
+  } else {
+    navigate('/login')
   }
+  setLoading(false)
+}
 
   return (
     <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
