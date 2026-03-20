@@ -29,7 +29,7 @@ const handleGoogleLogin = async () => {
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: 'https://saas-starter-theta-neon.vercel.app'
+      redirectTo: window.location.origin + '/dashboard'
     }
   })
   if (error) setError(error.message)
