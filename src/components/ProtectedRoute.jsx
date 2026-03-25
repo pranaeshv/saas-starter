@@ -13,7 +13,7 @@ export default function ProtectedRoute({ children }) {
       setLoading(false)
       if (!session) navigate('/login')
     })
-  }, [])
+  })
 
   if (loading) {
     return (
